@@ -2,7 +2,7 @@ FROM node:22.23.4-bookworm-slim AS node
 FROM sharelatex/sharelatex:4.2.9
 COPY --from=node /usr/local/bin/node /usr/local/bin/node
 
-RUN apt-get update && apt-get install -y python3-pip \
+RUN apt-get update && apt-get upgrade -y && apt-get install -y python3-pip \
     && apt-get clean && rm -rf /var/lib/apt/lists/* \
     && pip --no-cache-dir install Pygments \
     && tlmgr || (export TEXLIVE_VERSION="$(find /usr/local/texlive -type d -name "2*" -printf "%f\n" | tail -1)" \
